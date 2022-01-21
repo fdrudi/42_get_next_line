@@ -6,7 +6,7 @@
 /*   By: fdrudi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 14:14:18 by fdrudi            #+#    #+#             */
-/*   Updated: 2022/01/21 11:24:14 by fdrudi           ###   ########.fr       */
+/*   Updated: 2022/01/21 16:54:49 by fdrudi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,25 +18,35 @@
 
 char	*get_next_line(int fd)
 {
-	char	buf[BUFFER_SIZE];
+	char	buf[BUFFER_SIZE + 1];
 	char	*dst;
-	size_t		file_len;
-	size_t		i;
+	size_t	file_len;
+	size_t	i;
+	size_t	x;
+	size_t	count;
 
-	file_len = read(fd, buf, BUFFER_SIZE);
-	dst = (char *) malloc ((file_len + 1) * sizeof(char));
+	i = 0;
+	count = 0;
+	while (file_len != 0)
+	{
+		file_len = read(fd, buf, BUFFER_SIZE);
+		count += file_len;
+	}
+	//while (buf[i - 1] != '\n' && buf[i] != '\0' && i < count)
+	//	i++;
+	printf("%zu", count);
+
+	dst = (char *) malloc (count + 1);
 	if (!dst)
 	return (NULL);
-	i = 0;
-	while (i < file_len && buf[i] != '\n'&& buf[i] != '\0')
+	x = 0;
+	while (i--)
 	{
-		dst[i] = buf[i];
-		i++;
+		dst[x] = buf[x];
+		x++;
 	}
-	if (buf[i] == '\n')
-		dst[i] = '\n';
-	else if (buf[i] == '\0')
-		dst[i] = '\0';
+	dst[x] = '\0';
+	printf("%s", dst);
 	return (dst);
 }
 
@@ -46,7 +56,6 @@ int main()
 	int fd;
 
 	fd = open("test.txt", O_RDONLY);
-	printf("%s", get_next_line(fd));
+	get_next_line(fd);
 	return (0);
 }
-

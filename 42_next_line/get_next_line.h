@@ -6,7 +6,7 @@
 /*   By: fdrudi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 17:38:37 by fdrudi            #+#    #+#             */
-/*   Updated: 2022/01/21 11:28:05 by fdrudi           ###   ########.fr       */
+/*   Updated: 2022/01/21 12:09:39 by fdrudi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 # include <stdlib.h>
 
 #ifndef BUFFER_SIZE
-# define BUFFER_SIZE 100;
+# define BUFFER_SIZE 100
+#endif
 
 char	*get_next_line(int fd);
 
-#endif
 #endif
