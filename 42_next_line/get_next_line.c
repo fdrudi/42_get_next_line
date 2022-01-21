@@ -6,7 +6,7 @@
 /*   By: fdrudi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 14:14:18 by fdrudi            #+#    #+#             */
-/*   Updated: 2022/01/20 18:18:56 by fdrudi           ###   ########.fr       */
+/*   Updated: 2022/01/21 11:24:14 by fdrudi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,11 @@ char	*get_next_line(int fd)
 	size_t		file_len;
 	size_t		i;
 
-//	file_len = ? ;//fino a \n !
-	dst = (char *) malloc ((char) buf* sizeof(char));
+	file_len = read(fd, buf, BUFFER_SIZE);
+	dst = (char *) malloc ((file_len + 1) * sizeof(char));
 	if (!dst)
 	return (NULL);
 	i = 0;
-	file_len = read(fd, buf, BUFFER_SIZE);
 	while (i < file_len && buf[i] != '\n'&& buf[i] != '\0')
 	{
 		dst[i] = buf[i];
@@ -36,6 +35,8 @@ char	*get_next_line(int fd)
 	}
 	if (buf[i] == '\n')
 		dst[i] = '\n';
+	else if (buf[i] == '\0')
+		dst[i] = '\0';
 	return (dst);
 }
 
